@@ -30,7 +30,7 @@ const PORT = process.env.PORT || 4000;
     const uri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/donorapp';
     await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     console.log('Connected to MongoDB');
-    app.listen(PORT, () => console.log(`Server started on, http://localhost:${PORT}`));
+    app.listen(PORT, () => console.log(`✅ Server started successfully on port ${PORT}`));
     startCron();
   } catch (e) {
     console.error('Start error', e.message);
