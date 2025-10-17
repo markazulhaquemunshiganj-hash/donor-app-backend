@@ -12,7 +12,11 @@ const dueRoute = require('./routes/due');
 const { startCron } = require('./cron');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "*", // সব ডোমেইনকে অনুমতি দিচ্ছে
+  methods: ["GET", "POST", "PUT", "DELETE"]
+}));
+
 app.use(bodyParser.json());
 
 app.use('/api/donors', donorsRoute);
