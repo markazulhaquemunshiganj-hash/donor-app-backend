@@ -2,10 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+
 require('dotenv').config();
 
 
-
+const authRoute = require('./routes/auth');
 const donorsRoute = require('./routes/donors');
 const donationsRoute = require('./routes/donations');
 const dueRoute = require('./routes/due');
@@ -18,7 +19,7 @@ app.use(cors({
 }));
 
 app.use(bodyParser.json());
-
+app.use('/api/auth', authRoute);
 app.use('/api/donors', donorsRoute);
 app.use('/api/donations', donationsRoute);
 app.use('/api/due', dueRoute);
