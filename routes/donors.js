@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Donor } = require('../models');
+const sendSMS = require('../twilioService');
 
 router.get('/', async (req, res) => {
   try {
@@ -16,6 +17,14 @@ router.post('/', async (req, res) => {
     const { name, phone, book_no, address } = req.body;
     const donor = new Donor({ name, phone, book_no, address });
     await donor.save();
+
+    // ✅ SMS পাঠানো
+    if (donor.phone) {
+      const message = `প্রিয় ${donor.name}, ধন্যবাদ! আপনি দাতা হিসেবে সফলভাবে যুক্ত হয়েছেন।`;
+      await sendSMS(`+88${donor.phone}`, message);
+      alert('SMS sent successfully');
+    }
+
     res.json(donor);
   } catch (e) {
     res.status(400).json({ error: e.message });
